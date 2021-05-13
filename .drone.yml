@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: default
+steps:
+- name: greeting
+  image: alpine
+  commands:
+  - echo hello world
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+node:
+  environment: test
