@@ -18,4 +18,4 @@ steps:
     instance:
     - drone-pr.rancher.io
 node:
-  environment: test
+  drone_lab: true
