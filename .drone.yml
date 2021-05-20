@@ -12,7 +12,6 @@ steps:
   commands:
   - echo hello world
   - echo update to trigger build
-  - sleep 600
   when:
     event:
     - pull_request
