@@ -11,9 +11,9 @@ steps:
   image: docker
   commands:
   - docker version
-  - info
-  - images
-  - ps
+  - docker info
+  - docker images
+  - docker ps
   volumes:
   - name: docker
     path: /var/run/docker.sock
