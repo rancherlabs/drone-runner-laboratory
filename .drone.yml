@@ -7,11 +7,13 @@ platform:
   arch: amd64
 
 steps:
-- name: greeting
-  image: alpine
+- name: introspection
+  image: docker
   commands:
-  - echo hello world
-  - echo update to trigger build
+  - version
+  - info
+  - images
+  - ps
   when:
     event:
     - pull_request
