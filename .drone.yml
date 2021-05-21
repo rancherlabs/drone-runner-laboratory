@@ -10,7 +10,7 @@ steps:
 - name: introspection
   image: docker
   commands:
-  - version
+  - docker version
   - info
   - images
   - ps
