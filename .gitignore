@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -13,3 +14,42 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+=======
+/.dapper
+/bin
+/dist
+/build
+*.swp
+/.trash-cache
+/trash.lock
+/.idea
+/cmd/agent/agent
+/package/data.json
+/package/k3s-airgap-images.tar
+/package/rancher
+/package/rancher-namespace.yaml
+/package/rancher.yaml
+/package/agent
+/tests/MANIFEST
+/tests/integration/MANIFEST
+tests/integration/MANIFEST
+tests/integration/.idea/
+/tests/.cache
+/tests/.tox
+/tests/integration/.tox/
+/tests/.venv
+/tests/.idea
+/default.etcd
+*.pyc
+__pycache__
+/management-state
+/rancher
+*.pytest_cache
+.kube/
+.vscode/
+.DS_Store
+tests/validation/.idea
+all.yaml
+kustomization.yaml
+kontainer-engine
+>>>>>>> d60543a03cdaf53e0bb497478b7426664e1b29ae
