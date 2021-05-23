@@ -1,0 +1,30 @@
+kind: pipeline
+type: docker
+name: linux-amd64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: introspection
+  image: docker
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+node:
+  drone_lab: true
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
