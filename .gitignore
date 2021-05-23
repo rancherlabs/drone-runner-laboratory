@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -13,3 +14,15 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+=======
+/.dapper
+/.cache
+/bin
+/dist
+*.swp
+.idea
+.vscode
+/data
+/rke2
+/build
+>>>>>>> 3e482dc1b412de59d2298a2c721c08eb3102fa65

@@ -112,8 +112,7 @@ volumes:
 - name: docker
   host:
     path: /var/run/docker.sock
-node:
-  drone_lab: true
+
 ---
 kind: pipeline
 type: docker
@@ -137,8 +136,7 @@ volumes:
 - name: docker
   host:
     path: /var/run/docker.sock
-node:
-  drone_lab: true
+
 ---
 kind: pipeline
 type: docker
@@ -201,8 +199,7 @@ volumes:
 depends_on:
 - build-amd64
 - check
-node:
-  drone_lab: true
+
 ---
 kind: pipeline
 type: docker
@@ -241,6 +238,5 @@ volumes:
 
 depends_on:
 - manifest
-node:
-  drone_lab: true
+
 ...

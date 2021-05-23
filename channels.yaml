@@ -1,0 +1,21 @@
+channels:
+- name: stable
+  latest: v1.20.7+rke2r1
+- name: latest
+  latestRegexp: .*
+  excludeRegexp: ^[^+]+-
+- name: v1.18
+  latestRegexp: v1\.18\..*
+  excludeRegexp: ^[^+]+-
+- name: v1.19
+  latestRegexp: v1\.19\..*
+  excludeRegexp: ^[^+]+-
+- name: testing
+  latestRegexp: -(alpha|beta|rc)
+- name: v1.20
+  latestRegexp: v1\.20\..*
+  excludeRegexp: ^[^+]+-
+github:
+  owner: rancher
+  repo: rke2
+redirectBase: https://github.com/rancher/rke2/releases/tag/
