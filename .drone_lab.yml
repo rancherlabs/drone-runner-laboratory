@@ -38,7 +38,7 @@ node:
 
 platform:
   os: linux
-  arch:arm64
+  arch: arm64
 
 steps:
 - name: introspection
