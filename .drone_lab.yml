@@ -60,3 +60,35 @@ volumes:
 - name: docker
   host:
     path: /var/run/docker.sock
+---
+kind: pipeline
+type: docker
+name: linux-arm
+node:
+  drone_lab: true
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: introspection
+  image: docker
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
