@@ -113,7 +113,7 @@ steps:
   - docker ps
   volumes:
   - name: docker
-    path: /var/run/docker.sock
+    path: \\\\.\\pipe\\docker_engine
   when:
     event:
     - pull_request
@@ -122,4 +122,4 @@ steps:
 volumes:
 - name: docker
   host:
-    path: /var/run/docker.sock
+    path: \\\\.\\pipe\\docker_engine
