@@ -9,7 +9,7 @@ platform:
   arch: amd64
 
 steps:
-- name: introspection
+- name: pr-introspection
   image: docker
   commands:
   - docker version
@@ -24,6 +24,22 @@ steps:
     - pull_request
     instance:
     - drone-pr.rancher.io
+- name: publish-introspection
+  image: docker
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    event:
+      exclude:
+      - pull_request
+    instance:
+    - drone-publish.rancher.io
 volumes:
 - name: docker
   host:
