@@ -199,7 +199,13 @@ platform:
   arch: amd64
   version: 2004
 
+clone:
+  disable: true
+
 steps:
+- name: clone
+  image: rancher/drone-images:git-2004
+
 - name: pr-introspection
   image: docker:windowsservercore
   commands:
@@ -246,8 +252,12 @@ platform:
   os: windows
   arch: amd64
   version: 20H2
+clone:
+  disable: true
 
 steps:
+- name: clone
+  image: rancher/drone-images:git-2004
 - name: pr-introspection
   image: docker:windowsservercore
   commands:
