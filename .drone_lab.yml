@@ -259,12 +259,9 @@ steps:
 - name: clone
   image: rancher/drone-images:git-2004
 - name: pr-introspection
-  image: docker:windowsservercore
+  image: mcr.microsoft.com/windows/servercore:2004
   commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
+  - winver.exe
   volumes:
   - name: docker
     path: \\\\.\\pipe\\docker_engine
