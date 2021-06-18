@@ -187,3 +187,106 @@ volumes:
 - name: docker
   host:
     path: \\\\.\\pipe\\docker_engine
+---
+kind: pipeline
+type: docker
+name: windows-2004
+node:
+  drone_lab: true
+
+platform:
+  os: windows
+  arch: amd64
+  version: 2004
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: rancher/drone-images:git-2004
+
+- name: pr-introspection
+  image: docker:windowsservercore
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: \\\\.\\pipe\\docker_engine
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+- name: publish-introspection
+  image: docker:windowsservercore
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: \\\\.\\pipe\\docker_engine
+  when:
+    event:
+      exclude:
+      - pull_request
+    instance:
+    - drone-publish.rancher.io
+volumes:
+- name: docker
+  host:
+    path: \\\\.\\pipe\\docker_engine
+---
+kind: pipeline
+type: docker
+name: windows-20H2
+node:
+  drone_lab: true
+
+platform:
+  os: windows
+  arch: amd64
+  version: 20H2
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: rancher/drone-images:git-2004
+- name: pr-introspection
+  image: mcr.microsoft.com/windows/servercore:2004
+  commands:
+  - winver.exe
+  volumes:
+  - name: docker
+    path: \\\\.\\pipe\\docker_engine
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+- name: publish-introspection
+  image: docker:windowsservercore
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: \\\\.\\pipe\\docker_engine
+  when:
+    event:
+      exclude:
+      - pull_request
+    instance:
+    - drone-publish.rancher.io
+volumes:
+- name: docker
+  host:
+    path: \\\\.\\pipe\\docker_engine
