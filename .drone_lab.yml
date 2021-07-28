@@ -51,10 +51,11 @@ type: docker
 name: linux-s390x
 node:
   drone_lab: true
+  arch: s390x
 
 platform:
   os: linux
-  arch: s390x
+  arch: amd64
 
 steps:
 - name: pr-introspection
