@@ -59,7 +59,7 @@ platform:
 
 steps:
 - name: pr-introspection
-  image: docker
+  image: s390x/docker
   commands:
   - docker version
   - docker info
@@ -74,7 +74,7 @@ steps:
     instance:
     - drone-pr.rancher.io
 - name: publish-introspection
-  image: docker
+  image: s390x/docker
   commands:
   - docker version
   - docker info
