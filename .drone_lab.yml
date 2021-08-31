@@ -19,6 +19,8 @@ steps:
     when:
       event:
         - pull_request
+      instance:
+        - drone-publish.rancher.io
 
 ---
 kind: pipeline
@@ -42,3 +44,5 @@ steps:
     when:
       event:
         - pull_request
+      instance:
+        - drone-publish.rancher.io
