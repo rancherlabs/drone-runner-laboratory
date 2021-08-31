@@ -19,3 +19,26 @@ steps:
     when:
       event:
         - pull_request
+
+---
+kind: pipeline
+name: default-windows-1809
+
+platform:
+  os: windows
+  arch: amd64
+  version: 1809
+
+steps:
+  - name: fossa-windows-1809
+    image: rancher/dapper:v0.5.4
+    environment:
+      FOSSA_API_KEY:
+        from_secret: FOSSA_API_KEY
+    commands:
+      - Set-ExecutionPolicy Bypass -Scope Process -Force; iex  ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fossas/spectrometer/master/install.ps1'))
+      - fossa analyze
+      - fossa test
+    when:
+      event:
+        - pull_request
