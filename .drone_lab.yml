@@ -1,6 +1,8 @@
 ---
 kind: pipeline
 name: default-linux-arm64
+node:
+  drone_lab: true
 
 platform:
   os: linux
@@ -18,13 +20,15 @@ steps:
       - fossa test
     when:
       event:
-        - pull_request
+        - push
       instance:
         - drone-publish.rancher.io
 
 ---
 kind: pipeline
 name: default-windows-1809
+node:
+  drone_lab: true
 
 platform:
   os: windows
@@ -43,6 +47,6 @@ steps:
       - fossa test
     when:
       event:
-        - pull_request
+        - push
       instance:
         - drone-publish.rancher.io
