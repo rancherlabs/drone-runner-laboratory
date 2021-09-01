@@ -1,150 +1,30 @@
+---
 kind: pipeline
-type: docker
-name: linux-amd64
-node:
-  drone_lab: true
+name: default-linux-arm64
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-- name: pr-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-    - pull_request
-    instance:
-    - drone-pr.rancher.io
-- name: publish-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-      exclude:
-      - pull_request
-    instance:
-    - drone-publish.rancher.io
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
+  - name: fossa-amd64
+    image: rancher/dapper:v0.5.4
+    environment:
+      FOSSA_API_KEY:
+        from_secret: FOSSA_API_KEY
+    commands:
+      - curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh | bash
+      - fossa analyze
+      - fossa test
+    when:
+      event:
+        - pull_request
+      instance:
+        - drone-publish.rancher.io
 
 ---
 kind: pipeline
-type: docker
-name: linux-arm64
-node:
-  drone_lab: true
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: pr-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-    - pull_request
-    instance:
-    - drone-pr.rancher.io
-- name: publish-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-      exclude:
-      - pull_request
-    instance:
-    - drone-publish.rancher.io
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
----
-kind: pipeline
-type: docker
-name: linux-arm
-node:
-  drone_lab: true
-
-platform:
-  os: linux
-  arch: arm
-
-steps:
-- name: pr-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-    - pull_request
-    instance:
-    - drone-pr.rancher.io
-- name: publish-introspection
-  image: docker
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    event:
-      exclude:
-      - pull_request
-    instance:
-    - drone-publish.rancher.io
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
----
-kind: pipeline
-type: docker
-name: windows-1809
-node:
-  drone_lab: true
+name: default-windows-1809
 
 platform:
   os: windows
@@ -152,38 +32,17 @@ platform:
   version: 1809
 
 steps:
-- name: pr-introspection
-  image: docker:windowsservercore-1809
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: \\\\.\\pipe\\docker_engine
-  when:
-    event:
-    - pull_request
-    instance:
-    - drone-pr.rancher.io
-- name: publish-introspection
-  image: docker:windowsservercore-1809
-  commands:
-  - docker version
-  - docker info
-  - docker images
-  - docker ps
-  volumes:
-  - name: docker
-    path: \\\\.\\pipe\\docker_engine
-  when:
-    event:
-      exclude:
-      - pull_request
-    instance:
-    - drone-publish.rancher.io
-volumes:
-- name: docker
-  host:
-    path: \\\\.\\pipe\\docker_engine
+  - name: fossa-windows-1809
+    image: rancher/dapper:v0.5.4
+    environment:
+      FOSSA_API_KEY:
+        from_secret: FOSSA_API_KEY
+    commands:
+      - Set-ExecutionPolicy Bypass -Scope Process -Force; iex  ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fossas/spectrometer/master/install.ps1'))
+      - fossa analyze
+      - fossa test
+    when:
+      event:
+        - pull_request
+      instance:
+        - drone-publish.rancher.io
