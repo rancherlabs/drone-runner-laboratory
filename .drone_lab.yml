@@ -16,7 +16,7 @@ steps:
         from_secret: FOSSA_API_KEY
     commands:
       - apk add curl
-      - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh | bash"
+      - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh | sh"
       - fossa analyze
       - fossa test
     when:
