@@ -207,7 +207,7 @@ steps:
   image: rancher/drone-images:git-amd64-ltsc2022
 
 - name: pr-introspection
-  image: docker:windowsservercore
+  image: rancher/drone-images:docker-amd64-ltsc2022
   commands:
   - docker version
   - docker info
