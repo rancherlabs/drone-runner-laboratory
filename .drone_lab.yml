@@ -48,6 +48,55 @@ volumes:
 ---
 kind: pipeline
 type: docker
+name: linux-s390x
+node:
+  drone_lab: true
+  arch: s390x
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: pr-introspection
+  image: s390x/docker
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    event:
+    - pull_request
+    instance:
+    - drone-pr.rancher.io
+- name: publish-introspection
+  image: s390x/docker
+  commands:
+  - docker version
+  - docker info
+  - docker images
+  - docker ps
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    event:
+      exclude:
+      - pull_request
+    instance:
+    - drone-publish.rancher.io
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
+---
+kind: pipeline
+type: docker
 name: linux-arm64
 node:
   drone_lab: true
